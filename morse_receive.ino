@@ -1,4 +1,4 @@
-int one [5] = {1,3,3,3,3};
+int one [5] = {1,3,3,3,3};                     /* Same array definitions for each of the numbers in morse code as in the send code*/ 
 int two [5] = {1,1,3,3,3};
 int three [5] = {1,1,1,3,3};
 int four [5] = {1,1,1,1,3};
@@ -18,20 +18,20 @@ int a = 1;
 int calib = 0;
 int b;
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(9600);                                         /*Initialises the Serial monitor and asks for the morse code to be sent via an LED or a laser module onto the LDR which will receive the data. */
   pinMode(ldr, INPUT);
   Serial.println("Please send a number through the laser.");
 }
 
 void loop() {
-  if(calib==0){
+  if(calib==0){                                             /* Calibration code for the LDR to adjust to the lighting conditions. */
      b = analogRead(ldr);
      calib++;
   }
-  value = analogRead(ldr);
+  value = analogRead(ldr);                                 /* Reads the current signal value of the LDR*/
   /*Serial.println(value);*/
-  if(i<5){
-    if (value>b+100){
+  if(i<5){                                                 // Determines the five values of the array sent by checking if the value of the LDR is high meaning that the light is on and determining the time that it was on for. This will be 1 or 3 seconds. 
+    if (value>b+100){                                      // Next it assigns this value to the ith index of the array num. In such a way it completes the array according to the data it received. 
       while(value>b+100){
         value = analogRead(ldr);
         count++;
@@ -44,7 +44,7 @@ void loop() {
       i++;
     }
   }
-  else if(i==5){
+  else if(i==5){                                         // After the array num has been completed, the array is compared to each of the 10 arrays and according to the one that is equal, the corresponding number is printed on the Serial monitor. 
     i = 0;
     for(int j=0;j<5;j++){
       if(num[j] != one[j]){
@@ -146,7 +146,7 @@ void loop() {
        Serial.println("Received: 0");
     }
     a=1;
-    Serial.println("Please send a number through the laser.");
+    Serial.println("Please send a number through the laser.");                                         // Initialises again so that a number can be received again. 
   }
   delay(100);
   count=0;
