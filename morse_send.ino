@@ -1,4 +1,4 @@
-int one [5] = {1,3,3,3,3};
+int one [5] = {1,3,3,3,3};                /*Create arrays for each of the numbers based on their morse code representations. A 3 represents a long dash while a 1 represents a short dash. This is the time in seconds for which the light will blink. */ 
 int two [5] = {1,1,3,3,3};
 int three [5] = {1,1,1,3,3};
 int four [5] = {1,1,1,1,3};
@@ -15,7 +15,7 @@ int first = 0;
 void setup() {
   Serial.begin(9600);
   pinMode(laser, OUTPUT);
-  Serial.println("Please give a number between 0 and 9 to send as morse code.");
+  Serial.println("Please give a number between 0 and 9 to send as morse code.");           /* Asks user to type a number on the computer to send as morse code. */
 }
 
 void loop() {
@@ -23,7 +23,7 @@ void loop() {
   if(Serial.available()>0)
   {
     state = Serial.read();
-    switch(state) {
+    switch(state) {                                                              /* A switch based on all of the possible cases. The value of the specific number's array is copied over to a new one called num.*/
     case '0':
       for (int j=0;j<5;j++){
         num[j] = zero[j];
@@ -94,7 +94,7 @@ void loop() {
       first = 0;
       break;
     }
-    if(first == 0){
+    if(first == 0){                                       /* Blinks the LED according to the array with timings for the integer sent according to morse code. The if statement in the beginning is so that the integer is only sent once since otherwise the code will be repeatedly sent. */
       for (int i=0;i<5;i++){
       digitalWrite(laser,HIGH);
       delay((num[i]*1000));
